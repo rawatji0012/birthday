@@ -112,13 +112,13 @@ body {
 </head>
 <body>
 
-<div id="topMessage">🎉 Chalo Cake Cutting Time! 🎉</div>
+<div id="topMessage">🎉 Chalo Cake Cutting Time! 🩷</div>
 
 <div id="cakeContainer">
   <img src="cake.png" id="cake" alt="Birthday Cake">
   <img src="knife.png" id="knife" alt="Knife">
   <br>
-  <button id="cutBtn">Cut the Cake 🍰</button>
+  <button id="cutBtn">Cut the Cake darling 🩷</button>
 </div>
 
 <button id="nextBtn" onclick="location.href='page6.html'">Next ➡️</button>
@@ -139,7 +139,7 @@ btn.addEventListener('click', () => {
 });
 
 function startFloatingElements(){
-  const total = 20;
+  const total = 22;
   for(let i=1;i<=total;i++){
     setTimeout(()=>{ createPhoto(i); }, i*600); // slightly more gap
   }
@@ -188,6 +188,21 @@ function createFloatingHeart(){
   setTimeout(()=> heart.remove(),10000);
 }
 
+function createFloatingHeart(){
+  const heart = document.createElement('div');
+  heart.classList.add('float');
+  heart.innerHTML = '❤';
+  heart.style.fontSize = (20+Math.random()*30)+'px';
+  heart.style.left = Math.random()*100+'vw';
+  heart.style.top = '100vh';
+  document.body.appendChild(heart);
+  heart.animate([
+    { transform:'translateY(0px)', opacity:0.9 },
+    { transform:`translateY(-120vh)`, opacity:0.7 }
+  ], { duration: 9000 + Math.random()*3000, easing:'linear' });
+  setTimeout(()=> heart.remove(),11000);
+}
+
 function createFloatingConfetti(){
   const confetti = document.createElement('div');
   confetti.classList.add('float');
@@ -198,12 +213,13 @@ function createFloatingConfetti(){
   document.body.appendChild(confetti);
   confetti.animate([
     { transform:'translateY(0px)', opacity:0.9 },
-    { transform:`translateY(-120vh)`, opacity:0.7 }
-  ], { duration: 9000 + Math.random()*3000, easing:'linear' });
-  setTimeout(()=> confetti.remove(),11000);
+    { transform:`translateY(-130vh)`, opacity:0.7 }
+  ], { duration: 10000 + Math.random()*3000, easing:'linear' });
+  setTimeout(()=> confetti.remove(),12000);
 }
 </script>
 
 </body>
 </html>
+
 
