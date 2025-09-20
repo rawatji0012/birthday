@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Cake 🎂</title>
+<style>
+body {
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to top, #ffe0e0, #ffd3d3);
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  position:relative;
+}
+
+/* Top message */
+#topMessage {
+  position:absolute;
+  top:20px;
+  font-size:2em;
+  font-weight:bold;
+  color:#ff0077;
+  text-shadow: 1px 1px 5px #fff;
+  opacity:0;
+  transition: opacity 1s;
+  text-align:center;
+  width:100%;
+}
+
+/* Cake & button */
+#cakeContainer {
+  position: relative;
+  text-align: center;
+  margin-top: 50px;
+}
+#cake {
+  width: 250px;
+  transition: transform 1s ease;
+  z-index:1;
+}
+#knife {
+  position:absolute;
+  top:50px;
+  left:calc(50% - 150px);
+  transform: rotate(-45deg);
+  width:120px;
+  z-index:2;
+}
+#cutBtn {
+  margin-top:30px;
+  padding:12px 25px;
+  font-size:1.2em;
+  border:none;
+  border-radius:20px;
+  background:#ff0077;
+  color:#fff;
+  cursor:pointer;
+  box-shadow: 0 0 10px #ff0077;
+  transition: all 0.3s;
+}
+#cutBtn:hover { box-shadow: 0 0 25px #ff69b4; }
+
+/* Next button */
+#nextBtn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding:12px 30px;
+  font-size:1.2em;
+  border:none;
+  border-radius:25px;
+  background: #ff0077;
+  color:#fff;
+  cursor:pointer;
+  box-shadow: 0 0 10px #ff0077;
+  animation: glow 1.5s infinite alternate;
+  display:none;
+}
+@keyframes glow {
+  from { box-shadow: 0 0 10px #ff0077; }
+  to { box-shadow: 0 0 30px #ff69b4; }
+}
+
+/* Floating elements */
+.float {
+  position:absolute;
+  font-size:30px;
+  opacity:0.9;
+  animation: floatUp linear forwards;
+}
+
+/* Photos */
+.photo-frame {
+  width:100px;
+  height:100px;
+  position:absolute;
+  overflow:hidden;
+  border-radius:15px;
+  border:2px solid #ff69b4;
+}
+.photo-frame img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+</style>
+</head>
+<body>
+
+<div id="topMessage">🎉 Chalo Cake Cutting Time! 🎉</div>
+
+<div id="cakeContainer">
+  <img src="aadhya/cake.png" id="cake" alt="Birthday Cake">
+  <img src="aadhya/knife.png" id="knife" alt="Knife">
+  <br>
+  <button id="cutBtn">Cut the Cake 🍰</button>
+</div>
+
+<button id="nextBtn" onclick="location.href='page6.html'">Next ➡️</button>
+
+<script>
+const cake = document.getElementById('cake');
+const btn = document.getElementById('cutBtn');
+const nextBtn = document.getElementById('nextBtn');
+const topMsg = document.getElementById('topMessage');
+
+btn.addEventListener('click', () => {
+  btn.disabled = true;
+  topMsg.style.opacity = 1;
+
+  cake.style.transform = 'scale(0.7) translateY(50px)';
+
+  setTimeout(() => { startFloatingElements(); }, 800);
+});
+
+function startFloatingElements(){
+  const total = 20;
+  for(let i=1;i<=total;i++){
+    setTimeout(()=>{ createPhoto(i); }, i*600); // slightly more gap
+  }
+
+  let heartInterval = setInterval(createFloatingHeart, 600);
+  let confettiInterval = setInterval(createFloatingConfetti, 800);
+
+  setTimeout(()=>{
+    clearInterval(heartInterval);
+    clearInterval(confettiInterval);
+    nextBtn.style.display = 'block';
+  }, 16000); // longer for smooth animation
+}
+
+function createPhoto(i){
+  const frame = document.createElement('div');
+  frame.classList.add('photo-frame');
+  frame.style.left = Math.random()*70 + 'vw'; // more gap
+  frame.style.top = '100vh';
+
+  const img = document.createElement('img');
+  img.src = `aadhya/photo${i}.jpg`;
+  frame.appendChild(img);
+  document.body.appendChild(frame);
+
+  frame.animate([
+    { transform:'translateY(0px)', opacity:1 },
+    { transform:`translateY(-100vh)`, opacity:0.9 }
+  ], { duration: 9000 + Math.random()*2000, easing:'linear' });
+
+  setTimeout(()=> frame.remove(),11000);
+}
+
+function createFloatingHeart(){
+  const heart = document.createElement('div');
+  heart.classList.add('float');
+  heart.innerHTML = '❤️';
+  heart.style.fontSize = (20+Math.random()*30)+'px';
+  heart.style.left = Math.random()*100+'vw';
+  heart.style.top = '100vh';
+  document.body.appendChild(heart);
+  heart.animate([
+    { transform:'translateY(0px)', opacity:0.9 },
+    { transform:`translateY(-110vh)`, opacity:0.7 }
+  ], { duration: 8000 + Math.random()*3000, easing:'linear' });
+  setTimeout(()=> heart.remove(),10000);
+}
+
+function createFloatingConfetti(){
+  const confetti = document.createElement('div');
+  confetti.classList.add('float');
+  confetti.innerHTML = '🎉';
+  confetti.style.fontSize = (15+Math.random()*20)+'px';
+  confetti.style.left = Math.random()*100+'vw';
+  confetti.style.top = '100vh';
+  document.body.appendChild(confetti);
+  confetti.animate([
+    { transform:'translateY(0px)', opacity:0.9 },
+    { transform:`translateY(-120vh)`, opacity:0.7 }
+  ], { duration: 9000 + Math.random()*3000, easing:'linear' });
+  setTimeout(()=> confetti.remove(),11000);
+}
+</script>
+
+</body>
+</html>

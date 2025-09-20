@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Balloons 🎂</title>
+<style>
+body {
+  margin:0;
+  padding:0;
+  background: linear-gradient(to top, #ffe0e0, #ffcccc);
+  font-family: 'Segoe UI', sans-serif;
+  overflow:hidden;
+}
+
+#message {
+  position:absolute;
+  top:20px;
+  width:100%;
+  text-align:center;
+  font-size:1.8em;
+  color:#ff0077;
+  font-weight:bold;
+}
+
+.balloon {
+  position:absolute;
+  width:100px;
+  height:130px;
+  cursor:pointer;
+  transition: transform 0.2s;
+  z-index:2;
+}
+
+#nextBtn, #retryBtn {
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:12px 25px;
+  font-size:1.2em;
+  border:none;
+  border-radius:20px;
+  background:#ff0077;
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 0 10px #ff69b4;
+  display:none;
+}
+#nextBtn:hover, #retryBtn:hover {
+  box-shadow:0 0 20px #ff69b4;
+}
+</style>
+</head>
+<body>
+
+<div id="message">Pop all the balloons 🎈</div>
+<button id="nextBtn" onclick="location.href='page3.html'">Next ➡️</button>
+<button id="retryBtn" onclick="startGame()">Retry 🔄</button>
+
+<script>
+const totalBalloons = 10;
+let poppedCount = 0;
+let activeBalloons = [];
+
+function random(min,max){ return Math.random()*(max-min)+min; }
+
+function createBalloon(i){
+  const balloon = document.createElement('div');
+  balloon.classList.add('balloon');
+  balloon.textContent = "🎈"; // emoji balloon
+  balloon.style.fontSize = "4rem";
+  balloon.style.left = random(5,85)+'vw';
+  balloon.style.top = '100vh';
+  document.body.appendChild(balloon);
+  activeBalloons.push(balloon);
+
+  // Balloon float animation
+  let duration = random(6000,9000);
+  let start = performance.now();
+
+  function animateBalloon(time){
+    const elapsed = time - start;
+    const progress = elapsed / duration;
+    if(progress < 1){
+      balloon.style.top = 100 - progress*110 + 'vh';
+      requestAnimationFrame(animateBalloon);
+    } else {
+      balloon.remove();
+      activeBalloons = activeBalloons.filter(b => b!==balloon);
+      checkResult();
+    }
+  }
+  requestAnimationFrame(animateBalloon);
+
+  // Pop on click
+  balloon.addEventListener('click',()=>{
+    poppedCount++;
+    balloon.style.transform = "scale(0)";
+    setTimeout(()=> balloon.remove(),200);
+    activeBalloons = activeBalloons.filter(b => b!==balloon);
+    checkResult();
+  });
+}
+
+function startGame(){
+  // reset
+  document.querySelectorAll('.balloon').forEach(b => b.remove());
+  document.getElementById('message').textContent = "Pop all the balloons 🎈";
+  document.getElementById('nextBtn').style.display = 'none';
+  document.getElementById('retryBtn').style.display = 'none';
+  poppedCount = 0;
+  activeBalloons = [];
+
+  for(let i=0;i<totalBalloons;i++){
+    setTimeout(()=> createBalloon(i), i*800);
+  }
+}
+
+function checkResult(){
+  if(poppedCount>=totalBalloons){
+    document.getElementById('message').textContent = "Wah yrr! Chalo ab idhar aao 😍";
+    document.getElementById('nextBtn').style.display = 'block';
+  } else if(activeBalloons.length===0 && poppedCount<totalBalloons){
+    document.getElementById('message').textContent = "Oops! Kuch reh gaye 🎈 Try again!";
+    document.getElementById('retryBtn').style.display = 'block';
+  }
+}
+
+startGame();
+</script>
+
+</body>
+</html>

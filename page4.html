@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Surprise 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ffdde1, #ee9ca7);
+      text-align: center;
+      overflow: hidden;
+      color: #fff;
+      padding: 50px 20px;
+    }
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 30px;
+      animation: bounce 2s infinite alternate;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    #typewriter {
+      font-size: 1.5em;
+      line-height: 2em;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      border-right: 2px solid white;
+      white-space: pre-wrap;
+      padding-right: 5px;
+    }
+    #surprise {
+      display: none;
+      font-size: 2em;
+      margin-top: 30px;
+      color: #ff0077;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff4b6e; }
+      to { text-shadow: 0 0 30px #fff, 0 0 50px #ff4b6e; }
+    }
+    .btn {
+      margin-top: 40px;
+      padding: 12px 30px;
+      font-size: 1.3em;
+      border-radius: 30px;
+      background: #ff0077;
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      animation: sparkle 1.5s infinite alternate;
+      position: relative;
+      z-index: 10;
+    }
+    @keyframes sparkle {
+      from { box-shadow: 0 0 10px #ff66aa; }
+      to { box-shadow: 0 0 30px #ff99cc; }
+    }
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: red;
+      animation: floatUp linear forwards;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(100vh) scale(1); opacity: 1; }
+      to { transform: translateY(-150px) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💖 Happy Birthday Surprise, Aadhya! 💖</h1>
+  <div id="typewriter"></div>
+  <div id="surprise">🎁 You are the most precious gift of my life, Aadhya… 💖🎂</div>
+  <button class="btn" id="nextBtn" onclick="nextPage()">>>> Next</button>
+
+  <script>
+    const text = `Aadhya, my love!  
+
+Today is all about you, the most beautiful soul in my life.  
+Your smile brightens my darkest days, your laughter makes my heart dance,  
+and your presence fills every moment with magic.  
+
+I wish you endless happiness, countless smiles, and all the love you deserve.  
+You are my dream, my heart, and my forever.  
+
+Always remember, no matter where life takes us,  
+you will always be my most precious gift, my joy, and my reason to smile. 💖`;
+
+    const typewriter = document.getElementById("typewriter");
+    let i = 0;
+
+    function typeWriter() {
+      if (i < text.length) {
+        typewriter.innerHTML += text.charAt(i);
+        i++;
+        let speed = 30;
+        if (text.charAt(i-1) === "\n") speed = 200;
+        setTimeout(typeWriter, speed);
+      } else {
+        showSurprise();
+      }
+    }
+    typeWriter();
+
+    function showSurprise() {
+      document.getElementById("surprise").style.display = "block";
+      createHearts(50);
+    }
+
+    function createHearts(count) {
+      for (let j = 0; j < count; j++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        const symbols = ["❤️","💖","💞","🥰"];
+        heart.innerHTML = symbols[Math.floor(Math.random()*symbols.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+        heart.style.fontSize = (20 + Math.random() * 30) + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        const symbols = ["❤️","💖","💞","🥰"];
+        heart.innerHTML = symbols[Math.floor(Math.random()*symbols.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+        heart.style.fontSize = (20 + Math.random() * 30) + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }, 500);
+    }
+
+    function nextPage() {
+      window.location.href = "page5.html";
+    }
+  </script>
+</body>
+</html>

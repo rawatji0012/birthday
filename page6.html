@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Aadhya 💖</title>
+<style>
+  body {
+    margin:0;
+    height:100vh;
+    background: linear-gradient(to top, #fddde6, #ffd3d3);
+    overflow:hidden;
+    font-family: 'Segoe UI', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+  }
+  #frame {
+    position: relative;
+    width: 80%;
+    max-width: 700px;
+    height: 400px;
+    border: 5px solid white;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    color:#ff0077;
+    font-size:1.3em;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255,0,119,0.4);
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  #typedText {
+    white-space: pre-wrap;
+    line-height: 1.5em;
+    flex:1;
+  }
+  #signature {
+    text-align:center;
+    margin-top:10px;
+    font-size:1em;
+    color:#ff0077;
+    font-weight:bold;
+  }
+  .heart {
+    position:absolute;
+    font-size:30px;
+    color:#ff69b4;
+    animation: floatUp 8s linear infinite;
+    opacity:0.8;
+  }
+  @keyframes floatUp {
+    0% {transform: translateY(100vh) rotate(0deg);}
+    50% {transform: translateY(50vh) rotate(180deg);}
+    100% {transform: translateY(-10vh) rotate(360deg);}
+  }
+</style>
+</head>
+<body>
+
+<div id="frame">
+  <div id="typedText"></div>
+  <div id="signature">By Ashish 💖</div>
+</div>
+
+<script>
+// Long romantic birthday wish in Hinglish
+const message = `Happy Birthday meri pyaari Aadhya! 💖
+
+Tum meri zindagi ka sabse khoobsurat hissa ho. Tumhari hasi meri duniya roshan karti hai, aur tumhari baatein mere dil ko khushi se bhar deti hain. Har pal jo tumhare saath bitaya, wo mere liye sabse priceless hai.
+
+Aaj ke din main sirf itna chahta hoon ki tum khush raho, har sapna poora ho, aur tumhari zindagi hamesha pyaar aur pyari yaadon se bhari rahe. Tum meri duniya ho, meri jaan ho, aur meri har khushi ka reason ho. 
+
+Love you sooo much 💖`;
+
+let index = 0;
+const typedText = document.getElementById('typedText');
+
+function type() {
+  if(index < message.length){
+    typedText.innerHTML += message.charAt(index);
+    index++;
+    setTimeout(type, 50); // typing speed
+  } 
+}
+
+type();
+
+// Floating hearts animation outside frame
+function createHeart(){
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (20 + Math.random()*20) + "px";
+  heart.style.animationDuration = (6 + Math.random()*4) + "s";
+  heart.innerHTML = "❤️";
+  document.body.appendChild(heart);
+  setTimeout(()=> heart.remove(), 10000);
+}
+
+setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
